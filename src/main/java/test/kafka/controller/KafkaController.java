@@ -1,6 +1,7 @@
 package test.kafka.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import test.kafka.messaging.KafkaProducer;
@@ -14,8 +15,8 @@ public class KafkaController {
         this.kafkaProducer = kafkaProducer;
     }
 
-    @GetMapping("/send")
-    public void sendMessage(@RequestBody String topic, String payload){
-        kafkaProducer.sendMessage(topic, payload);
+    @PostMapping("/publish")
+    public void sendMessage(@RequestBody String message){
+        kafkaProducer.sendMessage(message);
     }
 }
