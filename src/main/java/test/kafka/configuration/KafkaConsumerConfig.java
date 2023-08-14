@@ -13,13 +13,13 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+// We don't use this configuration
 public class KafkaConsumerConfig {
 
-    @Value(value = "${kafka.bootstrap-address}")
+    @Value(value = "${spring.kafka.properties.bootstrap.servers}")
     private String bootstrapAddress;
 
-    @Value(value = "${kafka.group-id}")
+    @Value(value = "${spring.kafka.properties.group-id}")
     private String groupId;
 
     public Map<String, Object> consumerConfig(){

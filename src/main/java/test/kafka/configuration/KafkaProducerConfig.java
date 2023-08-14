@@ -11,10 +11,10 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+// We don't use this configuration
 public class KafkaProducerConfig {
 
-    @Value("${kafka.bootstrap-address}")
+    @Value("${spring.kafka.properties.bootstrap.servers}")
     private String bootstrapAddress;
 
     public Map<String, Object> producerConfig(){
