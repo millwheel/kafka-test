@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
+import test.kafka.dto.User;
 
 @Component
 @Slf4j
@@ -16,8 +17,8 @@ public class KafkaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(String payload){
-        log.info("producing message topic={}, payload={}", TOPIC, payload);
-        kafkaTemplate.send(TOPIC, payload);
+    public void sendMessage(String data){
+        log.info("producing message topic={}, payload={}", TOPIC, data);
+        kafkaTemplate.send(TOPIC, "key", data);
     }
 }
