@@ -14,13 +14,13 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 @Slf4j
-public class KafkaProducer {
+public class KafkaProducerForJson {
 
     private final KafkaTemplate<String, User> kafkaTemplate;
     private final String topic = "demo_spring";
 
     @Autowired
-    public KafkaProducer(KafkaTemplate<String, User> kafkaTemplate) {
+    public KafkaProducerForJson(KafkaTemplate<String, User> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -29,14 +29,8 @@ public class KafkaProducer {
                 .withPayload(user)
                 .setHeader(KafkaHeaders.TOPIC, topic)
                 .build();
+        kafkaTemplate.send(message);
+        log.info("produced message: name={}, age={}", message.getPayload().getName(), message.getPayload().getAge());
 
-        CompletableFuture<SendResult<String, User>> future = kafkaTemplate.send(message);
-        future.whenComplete((result, e) -> {
-           if (e == null){
-               log.info("produced message topic={}, payload name={}, age={}", topic, message.getPayload().getName(), message.getPayload().getAge());
-           } else{
-               log.error(e.getMessage());
-           }
-        });
     }
 }

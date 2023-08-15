@@ -1,9 +1,7 @@
 package test.kafka.messaging;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -12,7 +10,7 @@ import test.kafka.dto.User;
 
 @Component
 @Slf4j
-public class KafkaConsumer {
+public class KafkaConsumerForJson {
 
     @KafkaListener(topics="demo_spring", groupId = "spring-test")
     public void listener(@Headers MessageHeaders messageHeaders, @Payload User user){

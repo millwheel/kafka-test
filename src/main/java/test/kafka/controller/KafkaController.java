@@ -5,20 +5,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import test.kafka.dto.User;
-import test.kafka.messaging.KafkaProducer;
+import test.kafka.messaging.KafkaProducerForJson;
+import test.kafka.messaging.KafkaProducerForString;
 
 @RestController
 @Slf4j
 public class KafkaController {
 
-    private final KafkaProducer kafkaProducer;
+    private final KafkaProducerForJson kafkaProducerForJson;
+    private final KafkaProducerForString kafkaProducerForString;
 
-    public KafkaController(KafkaProducer kafkaProducer) {
-        this.kafkaProducer = kafkaProducer;
+    public KafkaController(KafkaProducerForJson kafkaProducerForJson, KafkaProducerForString kafkaProducerForString) {
+        this.kafkaProducerForJson = kafkaProducerForJson;
+        this.kafkaProducerForString = kafkaProducerForString;
     }
 
-    @PostMapping("/publish")
+    @PostMapping("/publish/string")
+    public void sendString(@RequestBody String data){
+        kafkaProducerForString.sendMessage(data);
+    }
+
+    @PostMapping("/publish/json")
     public void sendMessage(@RequestBody User user){
-        kafkaProducer.sendMessage(user);
+        kafkaProducerForJson.sendMessage(user);
     }
+
 }
