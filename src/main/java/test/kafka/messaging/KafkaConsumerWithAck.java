@@ -10,11 +10,11 @@ import test.kafka.dto.User;
 
 @Component
 @Slf4j
-public class KafkaConsumerForString {
+public class KafkaConsumerWithAck {
 
-//    @KafkaListener(topics="demo_spring", groupId = "spring-test")
-    public void listener(@Headers MessageHeaders messageHeaders, @Payload String message){
-        log.info("Received message: header={}, payload={}", messageHeaders, message);
+    @KafkaListener(id = "listener_ack", topics="demo_spring", groupId = "spring-test")
+    public void listener(@Headers MessageHeaders messageHeaders, @Payload User user){
+        log.info("Received message: header={}, payload name={}, age={}", messageHeaders, user.getName(), user.getAge());
     }
 
 }
