@@ -19,9 +19,4 @@ public class KafkaConsumer {
         log.info("Received message: header={}, payload name={}, age={}", messageHeaders, user.getName(), user.getAge());
     }
 
-    @Bean
-    public StringJsonMessageConverter jsonConverter() {
-        return new StringJsonMessageConverter();
-    }
-
 }
