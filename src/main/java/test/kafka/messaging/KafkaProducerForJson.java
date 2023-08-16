@@ -12,15 +12,15 @@ import test.kafka.dto.User;
 
 import java.util.concurrent.CompletableFuture;
 
-@Component
+//@Component
 @Slf4j
 public class KafkaProducerForJson {
 
-    private final KafkaTemplate<String, User> kafkaTemplate;
+    private final KafkaTemplate<Object, Object> kafkaTemplate;
     private final String topic = "demo_spring";
 
-    @Autowired
-    public KafkaProducerForJson(KafkaTemplate<String, User> kafkaTemplate) {
+//    @Autowired
+    public KafkaProducerForJson(KafkaTemplate<Object, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

@@ -16,11 +16,11 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class KafkaProducerForString {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<Object, Object> kafkaTemplate;
     private final String topic = "demo_spring";
 
     @Autowired
-    public KafkaProducerForString(KafkaTemplate<String, String> kafkaTemplate) {
+    public KafkaProducerForString(KafkaTemplate<Object, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 

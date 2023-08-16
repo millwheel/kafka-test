@@ -12,15 +12,15 @@ import test.kafka.dto.User;
 
 import java.util.concurrent.CompletableFuture;
 
-@Component
+//@Component
 @Slf4j
 public class KafkaProducerWithCallback {
 
-    private final KafkaTemplate<String, User> kafkaTemplate;
+    private final KafkaTemplate<Object, Object> kafkaTemplate;
     private final String topic = "demo_spring";
 
-    @Autowired
-    public KafkaProducerWithCallback(KafkaTemplate<String, User> kafkaTemplate) {
+//    @Autowired
+    public KafkaProducerWithCallback(KafkaTemplate<Object, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -30,12 +30,13 @@ public class KafkaProducerWithCallback {
                 .setHeader(KafkaHeaders.TOPIC, topic)
                 .build();
 
-        CompletableFuture<SendResult<String, User>> future = kafkaTemplate.send(message);
+        CompletableFuture<SendResult<Object, Object>> future = kafkaTemplate.send(message);
         future.whenComplete((result, e) -> {
            if (e == null){
-               log.info("produced message topic={}, payload name={}, age={}", topic, message.getPayload().getName(), message.getPayload().getAge());
+               int partition = result.getRecordMetadata().partition();
+               log.info("produced message partition={}, topic={}, payload name={}, age={}", partition, topic, message.getPayload().getName(), message.getPayload().getAge());
            } else{
-               log.error(e.getMessage());
+               log.error("Error occurred while producing message: {}", e.getMessage());
            }
         });
     }

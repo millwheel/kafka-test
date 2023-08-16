@@ -8,7 +8,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import test.kafka.dto.User;
 
-@Component
+//@Component
 @Slf4j
 public class KafkaConsumerForJson {
 

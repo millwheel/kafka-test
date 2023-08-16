@@ -12,7 +12,7 @@ import test.kafka.dto.User;
 @Slf4j
 public class KafkaConsumerForString {
 
-//    @KafkaListener(topics="demo_spring", groupId = "spring-test")
+    @KafkaListener(topics="demo_spring", groupId = "spring-test")
     public void listener(@Headers MessageHeaders messageHeaders, @Payload String message){
         log.info("Received message: header={}, payload={}", messageHeaders, message);
     }
