@@ -19,9 +19,10 @@ public class ShutdownHook implements DisposableBean {
 
     @Override
     public void destroy() {
+        System.out.println("----------------- The consumer server is shutting down --------------------");
         long lastConsumedOffset = consumer.getLastConsumedOffset();
         long lastPartition = consumer.getLastPartition();
-        log.info("Last consumed offset before shutdown: " + lastConsumedOffset);
         log.info("Last partition before shutdown: " + lastPartition);
+        log.info("Last consumed offset before shutdown: " + lastConsumedOffset);
     }
 }

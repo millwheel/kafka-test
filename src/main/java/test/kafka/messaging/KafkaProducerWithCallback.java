@@ -1,6 +1,8 @@
 package test.kafka.messaging;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -25,16 +27,16 @@ public class KafkaProducerWithCallback {
     }
 
     public void sendMessage(User user){
-        Message<User> message = MessageBuilder
-                .withPayload(user)
-                .setHeader(KafkaHeaders.TOPIC, topic)
-                .build();
+        Message<User> message = MessageBuilder.withPayload(user).setHeader(KafkaHeaders.TOPIC, topic).build();
 
         CompletableFuture<SendResult<Object, Object>> future = kafkaTemplate.send(message);
         future.whenComplete((result, e) -> {
            if (e == null){
                int partition = result.getRecordMetadata().partition();
-               log.info("produced message partition={}, topic={}, payload name={}, age={}", partition, topic, message.getPayload().getName(), message.getPayload().getAge());
+               long offset = result.getRecordMetadata().offset();
+               User sentUser = (User) result.getProducerRecord().value();
+               log.info("produced message topic={}, partition={}, offset={}, payload: name={}, age={}",
+                       topic, partition, offset, sentUser.getName(), sentUser.getAge());
            } else{
                log.error("Error occurred while producing message: {}", e.getMessage());
            }

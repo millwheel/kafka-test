@@ -8,11 +8,11 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import test.kafka.dto.User;
 
-@Component
+//@Component
 @Slf4j
 public class KafkaConsumerForJson {
 
-    @KafkaListener(topics="demo_spring", groupId = "spring-test")
+//    @KafkaListener(topics="demo_spring", groupId = "spring-test")
     public void listener(@Headers MessageHeaders messageHeaders, @Payload User user){
         log.info("Received message: header={}, payload name={}, age={}", messageHeaders, user.getName(), user.getAge());
     }

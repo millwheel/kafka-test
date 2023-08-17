@@ -9,14 +9,14 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import test.kafka.dto.User;
 
-@Component
+//@Component
 @Slf4j
 public class KafkaProducerForJson {
 
     private final KafkaTemplate<Object, Object> kafkaTemplate;
     private final String topic = "demo_spring";
 
-    @Autowired
+//    @Autowired
     public KafkaProducerForJson(KafkaTemplate<Object, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
