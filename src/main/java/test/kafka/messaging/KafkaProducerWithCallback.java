@@ -12,14 +12,14 @@ import test.kafka.dto.User;
 
 import java.util.concurrent.CompletableFuture;
 
-//@Component
+@Component
 @Slf4j
 public class KafkaProducerWithCallback {
 
     private final KafkaTemplate<Object, Object> kafkaTemplate;
     private final String topic = "demo_spring";
 
-//    @Autowired
+    @Autowired
     public KafkaProducerWithCallback(KafkaTemplate<Object, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
